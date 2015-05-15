@@ -36,11 +36,18 @@
 using namespace std;
 
 //Called when a key is pressed
+
+
+
 void handleKeypress(unsigned char key, //The key that was pressed
 	int x, int y) {    //The current mouse coordinates
 	switch (key) {
+
 	case 27: //Escape key
+
 		exit(0); //Exit the program
+
+
 	}
 }
 
@@ -48,6 +55,13 @@ void handleKeypress(unsigned char key, //The key that was pressed
 void initRendering() {
 	//Makes 3D drawing work when something is in front of something else
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_NORMALIZE);
+	 
+
 }
 
 //Called when the window is resized
@@ -59,11 +73,19 @@ void handleResize(int w, int h) {
 
 	//Set the camera perspective
 	glLoadIdentity(); //Reset the camera
-	gluPerspective(45.0,                  //The camera angle
+	gluPerspective(45.0f,                  //The camera angle
 		(double)w / (double)h, //The width-to-height ratio
 		1.0,                   //The near z clipping coordinate
 		200.0);                //The far z clipping coordinate
+
+	gluLookAt(-10.0f, 1.5f, 6.0f, -2.6f, 0.2f, 0.1f, 0.0f, 1.0f, 0.0f);
+	//gluLookAt(camX[x], camY[y], cam[z], c[x], c[y], c[z], 0.0, 1.0, 0.0);
+
 }
+
+
+
+
 
 //Draws the 3D scene
 void drawScene() {
@@ -73,38 +95,157 @@ void drawScene() {
 	glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
 	glLoadIdentity(); //Reset the drawing perspective
 
-	glBegin(GL_QUADS); //Begin quadrilateral coordinates
+	//ambient
+	GLfloat ambientcol[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientcol);
 
-	//Trapezoid
-	glVertex3f(-0.7f, -1.5f, -5.0f);
-	glVertex3f(0.7f, -1.5f, -5.0f);
-	glVertex3f(0.4f, -0.5f, -5.0f);
-	glVertex3f(-0.4f, -0.5f, -5.0f);
 
-	glEnd(); //End quadrilateral coordinates
+	GLfloat lightcolor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	GLfloat lightpos[] = { -5.0f, -1.5f, 4.0f, 1.0f };
+	glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
-	glBegin(GL_TRIANGLES); //Begin triangle coordinates
+	GLfloat lightcolor1[] = { 0.5f, 0.2f, 0.2f, 1.0f };
+	GLfloat lightpos1[] = { -1.0f, 0.5f, 0.5f, 0.0f };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightcolor1);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightpos1);
 
-	//Pentagon
-	glVertex3f(0.5f, 0.5f, -5.0f);
-	glVertex3f(1.5f, 0.5f, -5.0f);
-	glVertex3f(0.5f, 1.0f, -5.0f);
 
-	glVertex3f(0.5f, 1.0f, -5.0f);
-	glVertex3f(1.5f, 0.5f, -5.0f);
-	glVertex3f(1.5f, 1.0f, -5.0f);
 
-	glVertex3f(0.5f, 1.0f, -5.0f);
-	glVertex3f(1.5f, 1.0f, -5.0f);
-	glVertex3f(1.0f, 1.5f, -5.0f);
-
-	//Triangle
-	glVertex3f(-0.5f, 0.5f, -5.0f);
-	glVertex3f(-1.0f, 1.5f, -5.0f);
-	glVertex3f(-1.5f, 0.5f, -5.0f);
 	
+	glBegin(GL_QUADS); 
 
-	glEnd(); //End triangle coordinates
+
+	//bottom pane
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-2.6f,0.0f,0.1f);
+	glVertex3f(2.6f, 0.0f, 0.1f);
+	glVertex3f(2.6f, 0.0f, -5.2f);
+	glVertex3f(-2.6f, 0.0f, -5.2f);
+
+	//top pane
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-2.6f, 0.2f, 0.1f);
+	glVertex3f(2.6f, 0.2f, 0.1f);
+	glVertex3f(2.6f, 0.2f, -5.2f);
+	glVertex3f(-2.6f, 0.2f, -5.2f);
+
+	//sides of top
+	glNormal3f(0.0f, 0.0f, 0.1f);
+	glVertex3f(-2.6f, 0.2f, 0.1f);	glVertex3f(-2.6f, 0.0f, 0.1f);	glVertex3f(2.6f, 0.0f, 0.1f);	glVertex3f(2.6f, 0.2f, 0.1f);
+
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(2.6f, 0.2f, 0.1f);	glVertex3f(2.6f, 0.0f, 0.1f);	glVertex3f(2.6f, 0.0f, -5.2f);	glVertex3f(2.6f, 0.2f, -5.2f);
+
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(2.6f, 0.2f, -5.2f);	glVertex3f(2.6f, 0.0f, -5.2f);	glVertex3f(-2.6f, 0.0f, -5.2f);	glVertex3f(-2.6f, 0.2f, -5.2f);
+
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-2.6f, 0.2f, -5.2f);	glVertex3f(-2.6f, 0.0f, -5.2f);	glVertex3f(-2.6f, 0.0f, 0.1f);	glVertex3f(-2.6f, 0.2f, 0.1f);
+
+
+	//leg1
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-2.4f, 0.0f, -0.1f);
+	glVertex3f(-2.4f, -3.0f, -0.1f);
+	glVertex3f(-2.2f, -3.0f, -0.1f);
+	glVertex3f(-2.2f, 0.0f, -0.1f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-2.2f, 0.0f, -0.1f);
+	glVertex3f(-2.2f, -3.0f, -0.1f);
+	glVertex3f(-2.2f, -3.0f, -0.3f);
+	glVertex3f(-2.2f, 0.0f, -0.3f);
+	//
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-2.2f, 0.0f, -0.3f);
+	glVertex3f(-2.2f, -3.0f, -0.3f);
+	glVertex3f(-2.4f, -3.0f, -0.3f);
+	glVertex3f(-2.4f, 0.0f, -0.3f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-2.4f, 0.0f, -0.3f);
+	glVertex3f(-2.4f, -3.0f, -0.3f);
+	glVertex3f(-2.4f, -3.0f, -0.1f);
+	glVertex3f(-2.4f, 0.0f, -0.1f);
+
+	//leg2
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(2.2f, 0.0f, -0.1f);
+	glVertex3f(2.2f, -3.0f, -0.1f);
+	glVertex3f(2.4f, -3.0f, -0.1f);
+	glVertex3f(2.4f, 0.0f, -0.1f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(2.4f, 0.0f, -0.1f);
+	glVertex3f(2.4f, -3.0f, -0.1f);
+	glVertex3f(2.4f, -3.0f, -0.3f);
+	glVertex3f(2.4f, 0.0f, -0.3f);
+	//
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(2.4f, 0.0f, -0.3f);
+	glVertex3f(2.4f, -3.0f, -0.3f);
+	glVertex3f(2.2f, -3.0f, -0.3f);
+	glVertex3f(2.2f, 0.0f, -0.3f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(2.2f, 0.0f, -0.3f);
+	glVertex3f(2.2f, -3.0f, -0.3f);
+	glVertex3f(2.2f, -3.0f, -0.1f);
+	glVertex3f(2.2f, 0.0f, -0.1f);
+
+	//leg3
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(2.2f, 0.0f, -4.7f);
+	glVertex3f(2.2f, -3.0f, -4.7f);
+	glVertex3f(2.4f, -3.0f, -4.7f);
+	glVertex3f(2.4f, 0.0f, -4.7f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(2.4f, 0.0f, -4.7f);
+	glVertex3f(2.4f, -3.0f, -4.7f);
+	glVertex3f(2.4f, -3.0f, -4.9f);
+	glVertex3f(2.4f, 0.0f, -4.9f);
+	//
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(2.4f, 0.0f, -4.9f);
+	glVertex3f(2.4f, -3.0f, -4.9f);
+	glVertex3f(2.2f, -3.0f, -4.9f);
+	glVertex3f(2.2f, 0.0f, -4.9f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(2.2f, 0.0f, -4.9f);
+	glVertex3f(2.2f, -3.0f, -4.9f);
+	glVertex3f(2.2f, -3.0f, -4.7f);
+	glVertex3f(2.2f, 0.0f, -4.7f);
+
+	//leg4
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-2.4f, 0.0f, -4.7f);
+	glVertex3f(-2.4f, -3.0f, -4.7f);
+	glVertex3f(-2.2f, -3.0f, -4.7f);
+	glVertex3f(-2.2f, 0.0f, -4.7f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-2.2f, 0.0f, -4.7f);
+	glVertex3f(-2.2f, -3.0f, -4.7f);
+	glVertex3f(-2.2f, -3.0f, -4.9f);
+	glVertex3f(-2.2f, 0.0f, -4.9f);
+	//
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-2.2f, 0.0f, -4.9f);
+	glVertex3f(-2.2f, -3.0f, -4.9f);
+	glVertex3f(-2.4f, -3.0f, -4.9f);
+	glVertex3f(-2.4f, 0.0f, -4.9f);
+	//
+	glNormal3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(-2.4f, 0.0f, -4.9f);
+	glVertex3f(-2.4f, -3.0f, -4.9f);
+	glVertex3f(-2.4f, -3.0f, -4.7f);
+	glVertex3f(-2.4f, 0.0f, -4.7f);
+
+
+	glEnd();
 	glutSwapBuffers(); //Send the 3D scene to the screen
 }
 
@@ -116,7 +257,7 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(400, 400); //Set the window size
 
 	//Create the window
-	glutCreateWindow("Basic Shapes - videotutorialsrock.com");
+	glutCreateWindow("Scene 02");
 	initRendering(); //Initialize rendering
 
 	//Set handler functions for drawing, keypresses, and window resizes
