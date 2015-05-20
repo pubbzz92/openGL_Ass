@@ -68,6 +68,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="wallsFloor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="wallsFloor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,7 +33,7 @@
 #else
 #include <GL/glut.h>
 #endif
-
+#include "Sphere.h"
 using namespace std;
 
 //Called when a key is pressed
@@ -41,17 +41,17 @@ using namespace std;
 int xx = 0;
 int yy = 1;
 int zz = 2;
-float camX[] = { 20.0f, -2.0f, -23.0f, 20.0f, 22.0f, -5.0f, 0.0f, 100.0f, -3.0f, 9.0f, -2.0f};
-float c[] = { 0.0f, 0.0f, 0.0f, 0.0f, 4.9f, 0.0f, 0.0f, 0.0f, -3.0f, 0.0f, 0.0f, -3.0f};
-float pos[] = { 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
+float camX[] = { 20.0f, -2.0f, -23.0f, 20.0f, 22.0f, -5.0f, 0.0f, 100.0f, -2.5f,20.0f,22.0f,-23.0f};
+float c[] = { -5.0f, -3.0f, 2.0f, 0.0f, 4.9f, 0.0f, 0.0f, 0.0f, -3.0f,-5.0f,15.0f,2.0f};
+float pos[] = { 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,0.0f,1.0f,0.0f };
 
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates
 	
 	if (key == 120){ // key 'a'
-		xx = (xx + 3) % 9;
-		yy = (yy + 3) % 9;
-		zz = (zz + 3) % 9;
+		xx = (xx + 3) % 12;
+		yy = (yy + 3) % 12;
+		zz = (zz + 3) % 12;
 
 		glutPostRedisplay();
 
@@ -148,6 +148,7 @@ void drawScene() {
 	
 Table::Table();
 wallsFloor::wallsFloor();
+Sphere::Sphere();
 	glutSwapBuffers(); 
 
 }
