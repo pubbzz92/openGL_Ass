@@ -1,13 +1,16 @@
-﻿Build started 2015-05-13 11:03:42 AM.
-     1>Project "C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\openGL\openGL.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2015-05-20 11:57:15 AM.
+     1>Project "F:\Study\GitHub\openGL_assignmnt\openGL_Ass\openGL\openGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\Debug\openGL.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\Debug\openGL.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\Debug\openGL.lib" /MACHINE:X86 Debug\main.obj
-         openGL.vcxproj -> C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\Debug\openGL.exe
-     1>Done Building Project "C:\Users\Pubudu\documents\visual studio 2013\Projects\openGL\openGL\openGL.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Study\GitHub\openGL_assignmnt\openGL_Ass\Debug\openGL.exe" /INCREMENTAL /NOLOGO /LIBPATH:./lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\Study\GitHub\openGL_assignmnt\openGL_Ass\Debug\openGL.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Study\GitHub\openGL_assignmnt\openGL_Ass\Debug\openGL.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Sphere.obj
+         Debug\Table.obj
+         Debug\wallsFloor.obj
+         openGL.vcxproj -> F:\Study\GitHub\openGL_assignmnt\openGL_Ass\Debug\openGL.exe
+     1>Done Building Project "F:\Study\GitHub\openGL_assignmnt\openGL_Ass\openGL\openGL.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.92
+Time Elapsed 00:00:00.94
