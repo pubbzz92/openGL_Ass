@@ -223,3 +223,7 @@ FakesAssemblies/
 *.exe
 *.out
 *.app
+
+#openGL
+*.tlog
+*.sdf
