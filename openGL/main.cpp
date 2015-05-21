@@ -34,6 +34,9 @@
 #include <GL/glut.h>
 #endif
 #include "Sphere.h"
+#include "imageloader.h"
+#include "resource.h"
+
 using namespace std;
 
 //Called when a key is pressed
@@ -41,8 +44,8 @@ using namespace std;
 int xx = 0;
 int yy = 1;
 int zz = 2;
-float camX[] = { 20.0f, -2.0f, -23.0f, 20.0f, 22.0f, -5.0f, 0.0f, 100.0f, -2.5f,20.0f,22.0f,-23.0f};
-float c[] = { -5.0f, -3.0f, 2.0f, 0.0f, 4.9f, 0.0f, 0.0f, 0.0f, -3.0f,-5.0f,15.0f,2.0f};
+float camX[] = { 20.0f, -2.0f, -23.0f, 20.0f, 22.0f, -5.0f, 0.0f, 100.0f, -2.5f,4.0f,4.0f,2.0f};
+float c[] = { -5.0f, -3.0f, 2.0f, 0.0f, 4.9f, 0.0f, 0.0f, 0.0f, -3.0f,0.0f,0.0f,-2.0f};
 float pos[] = { 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,0.0f,1.0f,0.0f };
 
 
@@ -63,10 +66,6 @@ void handleKeypress(unsigned char key, int x, int y) {    //The current mouse co
 	
 	}
 
-
-
-
-
 //Initializes 3D rendering
 void initRendering() {
 	//Makes 3D drawing work when something is in front of something else
@@ -81,9 +80,11 @@ void initRendering() {
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
 
 
-	
+
+	 
 }
 
 //Called when the window is resized
@@ -118,33 +119,47 @@ void drawScene() {
 
 	gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
 	//ambient
-	GLfloat ambientcol[] = { 0.1f, 0.2f, 0.2f, 1.0f };
+	/*GLfloat light_ambient[] = { 0.2, 0.0, 0.0, 1.0 };
+	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { 1.0, 50.0, -7.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);*/
+	
+	GLfloat ambientcol[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientcol);
 
-
+	/*
 	//table light
-	GLfloat lightcolor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	GLfloat lightpos[] = { -5.0f, -3.0f, -4.0f, 1.0f };
-	glLightfv(GL_LIGHT0,GL_DIFFUSE,lightcolor);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcolor);
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
-	GLfloat lightcolor1[] = { 0.8f, 0.2f, 0.2f, 1.0f };
+	GLfloat lightcolor1[] = { 1.0f, 0.2f, 1.0f, 1.0f };
 	GLfloat lightpos1[] = { -1.0f, 0.5f, 0.5f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightcolor1);
 	glLightfv(GL_LIGHT1, GL_POSITION, lightpos1);
-	
-	//wall lights
-	GLfloat lightcolor2[] = { 0.2f, 0.3f, 0.5f, 1.0f };
-	GLfloat lightpos2[] = { 20.0f, -3.0f, - 4.0f, 1.0f };
+
+	//wall lights.0
+	GLfloat lightcolor2[] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	GLfloat lightpos2[] = { 20.0f, -3.0f, -4.0f, 1.0f };
 	glLightfv(GL_LIGHT3, GL_DIFFUSE, lightcolor2);
 	glLightfv(GL_LIGHT3, GL_POSITION, lightpos2);
 
-	GLfloat lightcolor3[] = { 0.5f, 0.2f, 0.2f, 1.0f };
+	GLfloat lightcolor3[] = { 1.0f, 0.2f, 0.2f, 1.0f };
 	GLfloat lightpos3[] = { -1.0f, 0.5f, 0.5f, 1.0f };
 	glLightfv(GL_LIGHT4, GL_DIFFUSE, lightcolor3);
 	glLightfv(GL_LIGHT4, GL_POSITION, lightpos3);
-	
+	*/
+	/*glEnable(GL_PROXY_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, _txtId);
 
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 	
 Table::Table();
 wallsFloor::wallsFloor();
@@ -173,6 +188,8 @@ int main(int argc, char** argv) {
 	glutMainLoop(); 
 	return 0; 
 }
+
+
 
 
 
