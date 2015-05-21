@@ -53,7 +53,7 @@ void initRendering() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_LIGHT3);
-	glEnable(GL_LIGHT4);
+	//glEnable(GL_LIGHT4);
 	glEnable(GL_NORMALIZE);
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_BLEND);
