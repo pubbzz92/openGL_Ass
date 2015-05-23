@@ -22,17 +22,18 @@ using namespace std;
 int xx = 0;
 int yy = 1;
 int zz = 2;
-float camX[] = { 20.0f, -2.0f, -23.0f, 20.0f, 22.0f, -5.0f, 0.0f, 100.0f, -2.5f,4.0f,4.0f,2.0f};
-float c[] = { -5.0f, -3.0f, 2.0f, 0.0f, 4.9f, 0.0f, 0.0f, 0.0f, -3.0f,0.0f,0.0f,-2.0f};
-float pos[] = { 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,0.0f,1.0f,0.0f };
+float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f, 2.0f,    -5.0f, 22.0f, 2.0f,       20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       20.0f,50.0f,   2.0f  };
+float c[] = {    -5.0f, -3.0f, 2.0f,        0.0f, 4.9f, 0.0f,      0.0f, 0.0f, -3.0f,       0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f, 2.0f,       -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,-3.0f, -23.0f  };
+float pos[] = {   0.0f, 1.0f, 0.0f,         0.0f, 1.0f, 0.0f,      0.0f, 0.0f, 1.0f,        0.0f, 1.0f, 0.0f,     0.0f, 1.0f, 0.0f,         0.0f, 1.0f, 0.0f,         0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f, 1.0f,   0.0f  };
+
 
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates
 	
 	if (key == 120){ // key 'a'
-		xx = (xx + 3) % 12;
-		yy = (yy + 3) % 12;
-		zz = (zz + 3) % 12;
+		xx = (xx + 3) % 27;
+		yy = (yy + 3) % 27;
+		zz = (zz + 3) % 27;
 
 		glutPostRedisplay();
 
@@ -139,6 +140,8 @@ void drawScene() {
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 	
+
+
 Table::Table();
 wallsFloor::wallsFloor();
 Sphere::Sphere();
