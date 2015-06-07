@@ -70,13 +70,16 @@
     <ClCompile Include="bulb.cpp" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Reflection.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="wallsFloor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bulb.h" />
     <ClInclude Include="imageloader.h" />
+    <ClInclude Include="Reflection.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Table.h" />

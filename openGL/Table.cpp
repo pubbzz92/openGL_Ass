@@ -5,7 +5,7 @@
 
 Table::Table()
 {
-
+	glColor3f(1.0, 1.0, 1.0);
 	Image* im = loadBMP("res/table.bmp");
 	GLuint _txtId = Textures::loadTextures(im);
 	delete im;
@@ -13,7 +13,9 @@ Table::Table()
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, _txtId);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glBegin(GL_QUADS);
 
@@ -178,10 +180,8 @@ Table::Table()
 	glVertex3f(-2.4f, -3.0f, -4.7f);
 	glVertex3f(-2.4f, 0.0f, -4.7f);
 
-	
-
-
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 

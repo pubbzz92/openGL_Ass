@@ -1,16 +1,18 @@
-
-
 #include <iostream>
 #include <stdlib.h> //Needed for "exit" function
 #include "Table.h"
+#include "bulb.h"
+#include "Reflection.h"
 #include "wallsFloor.h"
 //Include OpenGL header files, so that we can use OpenGL
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
+
 #else
 #include <GL/glut.h>
 #endif
+
 #include "Sphere.h"
 #include "imageloader.h"
 #include "resource.h"
@@ -22,18 +24,18 @@ using namespace std;
 int xx = 0;
 int yy = 1;
 int zz = 2;
-float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f, 2.0f,    -5.0f, 22.0f, 2.0f,       20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       20.0f,50.0f,   2.0f  };
-float c[] = {    -5.0f, -3.0f, 2.0f,        0.0f, 4.9f, 0.0f,      0.0f, 0.0f, -3.0f,       0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f, 2.0f,       -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,-3.0f, -23.0f  };
-float pos[] = {   0.0f, 1.0f, 0.0f,         0.0f, 1.0f, 0.0f,      0.0f, 0.0f, 1.0f,        0.0f, 1.0f, 0.0f,     0.0f, 1.0f, 0.0f,         0.0f, 1.0f, 0.0f,         0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f, 1.0f,   0.0f  };
+float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f,  2.0f,   -5.0f, 22.0f,   2.0f,     20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       50.0f, 12.0f, -6.4f,       -5.0f, 5.0f, -6.4f  };
+float c[]    = { -5.0f, -3.0f,   2.0f,      0.0f,  4.9f,  0.0f,    0.0f,   0.0f, -3.0f,     0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f,   2.0f,     -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,  8.0f, -6.4f,        0.0f, 5.0f, -6.4f };
+float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,  1.0f,     0.0f, 1.0f,  0.0f,    0.0f,  1.0f,   0.0f,      0.0f,  1.0f,   0.0f,      0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f,  1.0f,  0.0f,        0.0f, 1.0f,  0.0f  };
 
 
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates
 	
 	if (key == 120){ // key 'a'
-		xx = (xx + 3) % 27;
-		yy = (yy + 3) % 27;
-		zz = (zz + 3) % 27;
+		xx = (xx + 3) % 30;
+		yy = (yy + 3) % 30;
+		zz = (zz + 3) % 30;
 
 		glutPostRedisplay();
 
@@ -52,14 +54,14 @@ void initRendering() {
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHT3);
+	//glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT3);
 	//glEnable(GL_LIGHT4);
 	glEnable(GL_NORMALIZE);
-	glShadeModel(GL_SMOOTH);
+	//glShadeModel(GL_SMOOTH);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_TEXTURE_2D);
 
 
 
@@ -90,11 +92,14 @@ void handleResize(int w, int h) {
 //Draws the 3D scene
 void drawScene() {
 	//Clear information from last draw
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
 	glLoadIdentity(); //Reset the drawing perspective
+	gluPerspective(70.0f, 800.0f / 600.0f, 1.0f, 10000.0f);
 
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
 	//ambient
@@ -143,8 +148,10 @@ void drawScene() {
 
 
 Table::Table();
-wallsFloor::wallsFloor();
 Sphere::Sphere();
+bulb::bulb();
+Reflection::Reflection();
+wallsFloor::wallsFloor();
 	glutSwapBuffers(); 
 
 }
@@ -153,7 +160,7 @@ Sphere::Sphere();
 int main(int argc, char** argv) {
 	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(400, 400); 
 
 
