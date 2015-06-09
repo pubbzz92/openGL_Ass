@@ -15,8 +15,8 @@ Sphere::Sphere()
 	GLUquadric *quad = gluNewQuadric();
 	glPushMatrix();
 	glTranslatef(7.5f, -1.4f, -10.5f);
-	//gluQuadricTexture(quad, true);
-	gluQuadricTexture(quad, 1);
+	gluQuadricTexture(quad, true);
+	//gluQuadricTexture(quad, 1);
 	//gluQuadricNormals(quad, GLU_SMOOTH);
 	gluSphere(quad, 1.4, 50, 50);
 	
@@ -24,9 +24,7 @@ Sphere::Sphere()
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
-
 }
-
 
 Sphere::~Sphere()
 {
