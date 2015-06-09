@@ -75,6 +75,7 @@
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="wallsFloor.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bulb.h" />

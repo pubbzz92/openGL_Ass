@@ -6,11 +6,11 @@ GLUquadricObj *qobj;
 
 
 bulb::bulb() {
+	//glPushMatrix();
+	//glTranslatef(7.5f, 20.0f, -10.5f);     // position
+	//glPopMatrix();
 	glPushMatrix();
-	glTranslatef(7.5f, -10.0f, -10.5f);     // position
-	glPopMatrix();
-	glPushMatrix();
-
+	glTranslatef(7.5f, 18.0f, -10.5f);
 	//bulb
 	qobj = gluNewQuadric();
 	gluQuadricDrawStyle(qobj, GLU_FILL);
@@ -24,13 +24,15 @@ bulb::bulb() {
 
 	// draw arc 
 	glPushMatrix();
+	glTranslatef(7.5f, 18.0f, -10.5f);
 	gluQuadricDrawStyle(qobj, GLU_FILL); 
 	gluQuadricNormals(qobj, GLU_FLAT);
 	glRotatef(-90, 1.0, 0.0, 0.0);
-	gluCylinder(qobj, 0.0125, 0.0125, 5.0, 16, 10);
+	gluCylinder(qobj, 0.0125, 0.0125, 4.0, 16, 10);
 	glPopMatrix();
 
 	glPushMatrix();
+	glTranslatef(7.5f, 18.0f, -10.5f);
 	gluQuadricDrawStyle(qobj, GLU_FILL); 
 	gluQuadricNormals(qobj, GLU_FLAT);
 	glRotatef(-90, 1.0, 0.0, 0.0);
@@ -38,6 +40,7 @@ bulb::bulb() {
 	glPopMatrix();
 
 	glPushMatrix();
+	glTranslatef(7.5f, 18.0f, -10.5f);
 	gluQuadricDrawStyle(qobj, GLU_FILL);
 	gluQuadricNormals(qobj, GLU_FLAT);
 	glRotatef(-90, 1.0, 0.0, 0.0);
