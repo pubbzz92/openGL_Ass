@@ -24,18 +24,18 @@ using namespace std;
 int xx = 0;
 int yy = 1;
 int zz = 2;
-float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f,  2.0f,   -5.0f, 22.0f,   2.0f,     20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       50.0f, 12.0f, -6.4f,       -5.0f, 5.0f, -6.4f  };
-float c[]    = { -5.0f, -3.0f,   2.0f,      0.0f,  4.9f,  0.0f,    0.0f,   0.0f, -3.0f,     0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f,   2.0f,     -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,  8.0f, -6.4f,        0.0f, 5.0f, -6.4f };
-float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,  1.0f,     0.0f, 1.0f,  0.0f,    0.0f,  1.0f,   0.0f,      0.0f,  1.0f,   0.0f,      0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f,  1.0f,  0.0f,        0.0f, 1.0f,  0.0f  };
+float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f,  2.0f,   -5.0f, 22.0f,   2.0f,     20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       50.0f, 12.0f, -6.4f,       -5.0f, 5.0f, -6.4f ,	 20.0f, -3.0f,   2.0f ,	     20.0f,  21.9f,   2.0f};
+float c[]    = { -5.0f, -3.0f,   2.0f,      0.0f,  4.9f,  0.0f,    0.0f,   0.0f, -3.0f,     0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f,   2.0f,     -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,  8.0f, -6.4f,        0.0f, 5.0f, -6.4f ,   7.5f, 20.0f, -10.5f ,	     -5.0f,  21.0f,   -23.0f};
+float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,  1.0f,     0.0f, 1.0f,  0.0f,    0.0f,  1.0f,   0.0f,      0.0f,  1.0f,   0.0f,      0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f,  1.0f,  0.0f,        0.0f, 1.0f,  0.0f ,   0.0f,  1.0f,   0.0f ,	      0.0f,   1.0f,   0.0f};
 
 
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates
 	
 	if (key == 120){ // key 'a'
-		xx = (xx + 3) % 30;
-		yy = (yy + 3) % 30;
-		zz = (zz + 3) % 30;
+		xx = (xx + 3) % 36;
+		yy = (yy + 3) % 36;
+		zz = (zz + 3) % 36;
 
 		glutPostRedisplay();
 
@@ -147,14 +147,16 @@ void drawScene() {
 	
 
 
-Table::Table();
-Sphere::Sphere();
-bulb::bulb();
-Reflection::Reflection();
-wallsFloor::wallsFloor();
+	Table::Table();
+	wallsFloor::wallsFloor();
+	bulb::bulb();
+	Reflection::Reflection();
+	Sphere::Sphere();
 	glutSwapBuffers(); 
 
 }
+
+
 
 
 int main(int argc, char** argv) {
