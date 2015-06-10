@@ -9,6 +9,8 @@ bulb::bulb() {
 	//glPushMatrix();
 	//glTranslatef(7.5f, 20.0f, -10.5f);     // position
 	//glPopMatrix();
+
+
 	glPushMatrix();
 	glTranslatef(7.5f, 18.0f, -10.5f);
 	//bulb
@@ -46,6 +48,17 @@ bulb::bulb() {
 	glRotatef(-90, 1.0, 0.0, 0.0);
 	gluCylinder(qobj, 0.25, 0.25, 0.75, 16, 10);
 	glPopMatrix();
+
+
+
+	GLUquadricObj *quadratic;
+	glPushMatrix();
+	//Draw stand - Cone
+	glTranslatef(7.5f, 18.0f, -10.5f);
+	glRotatef(113.0f, -3.0f, 3.0f, 3.0f);
+	glutSolidCone(1.0f, 1.1f, 32, 32);
+	glPopMatrix();
+
 
 }
 
