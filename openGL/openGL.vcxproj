@@ -82,10 +82,14 @@
     <ClInclude Include="imageloader.h" />
     <ClInclude Include="Reflection.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="wallsFloor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="openGL1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

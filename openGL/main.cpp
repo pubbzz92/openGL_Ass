@@ -17,9 +17,20 @@
 #include "imageloader.h"
 #include "resource.h"
 
+
+
 using namespace std;
 
-//Called when a key is pressed
+
+float angle = 0.0;
+float lx = 0.0f, lz = -1.0f;
+float x = 0.0f, z = 5.0f;
+float deltaAngle = 0.0f;
+float deltaMove = 0;
+void computePos(float deltaMove);
+void computeDir(float deltaAngle);
+void pressKey(int key, int xx, int yy);
+void releaseKey(int key, int xx, int yy);
 
 int xx = 0;
 int yy = 1;
@@ -27,6 +38,7 @@ int zz = 2;
 float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f,  2.0f,   -5.0f, 22.0f,   2.0f,     20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       50.0f, 12.0f, -6.4f,       -5.0f, 5.0f, -6.4f ,	 20.0f, -3.0f,   2.0f ,	     20.0f,  21.9f,   2.0f};
 float c[]    = { -5.0f, -3.0f,   2.0f,      0.0f,  4.9f,  0.0f,    0.0f,   0.0f, -3.0f,     0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f,   2.0f,     -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,  8.0f, -6.4f,        0.0f, 5.0f, -6.4f ,   7.5f, 20.0f, -10.5f ,	     -5.0f,  21.0f,   -23.0f};
 float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,  1.0f,     0.0f, 1.0f,  0.0f,    0.0f,  1.0f,   0.0f,      0.0f,  1.0f,   0.0f,      0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f,  1.0f,  0.0f,        0.0f, 1.0f,  0.0f ,   0.0f,  1.0f,   0.0f ,	      0.0f,   1.0f,   0.0f};
+
 
 
 
@@ -100,8 +112,10 @@ void drawScene() {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	
 	gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
+	gluLookAt(x, 1.0f, z, x + lx, 1.0f, z + lz, 0.0f, 1.0f, 0.0f);
+	
 	//ambient
 	/*GLfloat light_ambient[] = { 0.2, 0.0, 0.0, 1.0 };
 	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -116,34 +130,10 @@ void drawScene() {
 	GLfloat ambientcol[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientcol);
 
-	/*
-	//table light
-	GLfloat lightcolor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat lightpos[] = { -5.0f, -3.0f, -4.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcolor);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
-
-	GLfloat lightcolor1[] = { 1.0f, 0.2f, 1.0f, 1.0f };
-	GLfloat lightpos1[] = { -1.0f, 0.5f, 0.5f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightcolor1);
-	glLightfv(GL_LIGHT1, GL_POSITION, lightpos1);
-
-	//wall lights.0
-	GLfloat lightcolor2[] = { 1.0f, 1.0f, 1.0f, 0.0f };
-	GLfloat lightpos2[] = { 20.0f, -3.0f, -4.0f, 1.0f };
-	glLightfv(GL_LIGHT3, GL_DIFFUSE, lightcolor2);
-	glLightfv(GL_LIGHT3, GL_POSITION, lightpos2);
-
-	GLfloat lightcolor3[] = { 1.0f, 0.2f, 0.2f, 1.0f };
-	GLfloat lightpos3[] = { -1.0f, 0.5f, 0.5f, 1.0f };
-	glLightfv(GL_LIGHT4, GL_DIFFUSE, lightcolor3);
-	glLightfv(GL_LIGHT4, GL_POSITION, lightpos3);
-	*/
-	/*glEnable(GL_PROXY_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, _txtId);
-
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
+	if (deltaMove)
+		computePos(deltaMove);
+	if (deltaAngle)
+		computeDir(deltaAngle);
 	
 
 
@@ -153,9 +143,10 @@ void drawScene() {
 	Reflection::Reflection();
 	Sphere::Sphere();
 	glutSwapBuffers(); 
+	glDisable();
+
 
 }
-
 
 
 
@@ -173,13 +164,50 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(drawScene);
 	glutKeyboardFunc(handleKeypress);
 	glutReshapeFunc(handleResize);
+	glutSpecialFunc(pressKey);
+
+	// here are the new entries
+	glutIgnoreKeyRepeat(1);
+	glutSpecialUpFunc(releaseKey);
+	glutIdleFunc(drawScene);
 	
 	
 	glutMainLoop(); 
 	return 0; 
 }
 
+void computePos(float deltaMove) {
 
+	x += deltaMove * lx * 0.1f;
+	z += deltaMove * lz * 0.1f;
+}
+
+void computeDir(float deltaAngle) {
+
+	angle += deltaAngle;
+	lx = sin(angle);
+	lz = -cos(angle);
+}
+
+void pressKey(int key, int xx, int yy) {
+
+	switch (key) {
+	case GLUT_KEY_LEFT: deltaAngle = -0.01f; break;
+	case GLUT_KEY_RIGHT: deltaAngle = 0.01f; break;
+	case GLUT_KEY_UP: deltaMove = 0.5f; break;
+	case GLUT_KEY_DOWN: deltaMove = -0.5f; break;
+	}
+}
+
+void releaseKey(int key, int x, int y) {
+
+	switch (key) {
+	case GLUT_KEY_LEFT:
+	case GLUT_KEY_RIGHT: deltaAngle = 0.0f; break;
+	case GLUT_KEY_UP:
+	case GLUT_KEY_DOWN: deltaMove = 0; break;
+	}
+}
 
 
 
