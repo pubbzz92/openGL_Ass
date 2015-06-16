@@ -23,8 +23,8 @@ using namespace std;
 
 
 float angle = 0.0;
-float lx = 0.0f, lz = 2.0f;
-float x1 = 0.0f, z1 = -5.0f;
+float lx = 0.0f, lz = -1.0f;
+float x1 = 0.0f, z1 = 2.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 void computePos(float deltaMove);
@@ -38,7 +38,7 @@ int zz = 2;
 float camX[] = { 20.0f, -2.0f, -23.0f,     20.0f, 22.0f, -5.0f,    0.0f, 100.0f, -2.5f,     4.0f, 4.0f,  2.0f,   -5.0f, 22.0f,   2.0f,     20.0f, 22.0f, -23.0f,     20.0f,-3.0f,   2.0f ,       20.0f,-3.0f, -23.0f,       50.0f, 12.0f, -6.4f,       -5.0f, 5.0f, -6.4f ,	 20.0f, -3.0f,   2.0f ,	     20.0f,  21.9f,   2.0f};
 float c[]    = { -5.0f, -3.0f,   2.0f,      0.0f,  4.9f,  0.0f,    0.0f,   0.0f, -3.0f,     0.0f, 0.0f, -2.0f,   20.0f, -3.0f, -23.0f,     -5.0f, -3.0f,   2.0f,     -5.0f,-3.0f, -23.0f ,       -5.0f,-3.0f,   2.0f,       -5.0f,  8.0f, -6.4f,        0.0f, 5.0f, -6.4f ,   7.5f, 20.0f, -10.5f ,	     -5.0f,  21.0f,   -23.0f};
 float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,  1.0f,     0.0f, 1.0f,  0.0f,    0.0f,  1.0f,   0.0f,      0.0f,  1.0f,   0.0f,      0.0f, 1.0f,   0.0f ,        0.0f, 1.0f,   0.0f,        0.0f,  1.0f,  0.0f,        0.0f, 1.0f,  0.0f ,   0.0f,  1.0f,   0.0f ,	      0.0f,   1.0f,   0.0f};
-
+float _angle = 30.0f;
 
 
 
@@ -155,6 +155,8 @@ void drawScene() {
 	Sphere::Sphere();
 	Vase::Vase();
 	//flower::flower();
+
+	
 	glutSwapBuffers(); 
 	
 	
@@ -174,16 +176,16 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Scene 02");
 	initRendering(); 
 
-
 	glutDisplayFunc(drawScene);
 	glutKeyboardFunc(handleKeypress);
 	glutReshapeFunc(handleResize);
 	glutIdleFunc(drawScene);
 	glutSpecialFunc(pressKey);
 
-	// here are the new entries
 	glutIgnoreKeyRepeat(1);
 	glutSpecialUpFunc(releaseKey);
+
+	
 
 	glutMainLoop(); 
 	return 0; 
