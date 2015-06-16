@@ -23,15 +23,15 @@ using namespace std;
 
 
 float angle = 0.0;
-float lx = 0.0f, lz = -1.0f;
-float x = 0.0f, z = 5.0f;
+float lx = 0.0f, lz = 2.0f;
+float x1 = 0.0f, z1 = 2.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 void computePos(float deltaMove);
 void computeDir(float deltaAngle);
 void pressKey(int key, int xxx, int yyy);
 void releaseKey(int key, int xxx, int yyy);
-
+int j = 0;
 int xx = 0;
 int yy = 1;
 int zz = 2;
@@ -44,7 +44,8 @@ float pos[]  = {  0.0f,  1.0f,   0.0f,      0.0f,  1.0f,  0.0f,    0.0f,   0.0f,
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates
 	
-	if (key == 120){ // key 'a'
+	if (key == 120){
+		j = 0;				// key 'x'
 		xx = (xx + 3) % 36;
 		yy = (yy + 3) % 36;
 		zz = (zz + 3) % 36;
@@ -56,6 +57,7 @@ void handleKeypress(unsigned char key, int x, int y) {    //The current mouse co
 	
 
 	}
+	
 	
 	
 	}
@@ -114,14 +116,16 @@ void drawScene() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
-	
-	//gluLookAt(x, 1.0f, z, x + lx, 1.0f, z + lz, 0.0f, 1.0f, 0.0f);
-	//if (deltaMove)
-	//	computePos(deltaMove);
-	//if (deltaAngle)
-	//	computeDir(deltaAngle);
-	
+	if (j ==0) { //fixed cameras
+		gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
+	}
+	else if (j == 1){ // free camera
+		gluLookAt(x1, 1.0f, z1, x1 + lx, 1.0f, z1 + lz, 0.0f, 1.0f, 0.0f);
+		if (deltaMove)
+			computePos(deltaMove);
+		if (deltaAngle)
+			computeDir(deltaAngle);
+	}
 	//ambient
 	/*GLfloat light_ambient[] = { 0.2, 0.0, 0.0, 1.0 };
 	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -183,8 +187,8 @@ int main(int argc, char** argv) {
 
 void computePos(float deltaMove) {
 
-	x += deltaMove * lx * 0.1f;
-	z += deltaMove * lz * 0.1f;
+	x1 += deltaMove * lx * 0.1f;
+	z1 += deltaMove * lz * 0.1f;
 }
 
 void computeDir(float deltaAngle) {
@@ -195,7 +199,7 @@ void computeDir(float deltaAngle) {
 }
 
 void pressKey(int key, int xxx, int yyy) {
-
+	j = 1;
 	switch (key) {
 	case GLUT_KEY_LEFT: deltaAngle = -0.08f; break;
 	case GLUT_KEY_RIGHT: deltaAngle = 0.08f; break;
@@ -205,7 +209,7 @@ void pressKey(int key, int xxx, int yyy) {
 }
 
 void releaseKey(int key, int xxx, int yyy) {
-
+	j = 1;
 	switch (key) {
 	case GLUT_KEY_LEFT:
 	case GLUT_KEY_RIGHT: deltaAngle = 0.0f; break;
