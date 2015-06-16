@@ -24,7 +24,7 @@ using namespace std;
 
 float angle = 0.0;
 float lx = 0.0f, lz = 2.0f;
-float x1 = 0.0f, z1 = 2.0f;
+float x1 = 0.0f, z1 = -5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 void computePos(float deltaMove);
@@ -136,9 +136,13 @@ void drawScene() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);*/
-	
+
 	GLfloat ambientcol[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientcol);
+
+	//GLfloat light_position[] = { 7.5f, 18.0f, -10.5f, 1.0 };
+	//glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	
 
 	
 	
@@ -150,7 +154,9 @@ void drawScene() {
 	//Reflection::Reflection();
 	Sphere::Sphere();
 	Vase::Vase();
+	//flower::flower();
 	glutSwapBuffers(); 
+	
 	
 
 
@@ -178,9 +184,7 @@ int main(int argc, char** argv) {
 	// here are the new entries
 	glutIgnoreKeyRepeat(1);
 	glutSpecialUpFunc(releaseKey);
-	
-	
-	
+
 	glutMainLoop(); 
 	return 0; 
 }

@@ -14,7 +14,7 @@ Sphere::Sphere()
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	GLUquadric *quad = gluNewQuadric();
 	glPushMatrix();
-	glTranslatef(7.5f, -1.4f, -10.5f);
+	glTranslatef(7.5f, 2.4f, -10.5f);
 	gluQuadricTexture(quad, true);
 	//gluQuadricTexture(quad, 1);
 	//gluQuadricNormals(quad, GLU_SMOOTH);

@@ -67,6 +67,10 @@ wallsFloor::wallsFloor()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glBegin(GL_QUADS);
 
+
+
+	//front
+
 	glNormal3f(0.0f, 0.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-5.0f, -3.0f, 2.0f);
@@ -77,6 +81,11 @@ wallsFloor::wallsFloor()
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-5.0f, 22.0f, 2.0f);
 
+	
+
+
+	///right door
+	
 
 	glNormal3f(-1.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -90,6 +99,9 @@ wallsFloor::wallsFloor()
 
 
 
+	
+	//back
+
 	glNormal3f(0.0f, 0.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(20.0f, -3.0f, -23.0f);
@@ -101,6 +113,10 @@ wallsFloor::wallsFloor()
 	glVertex3f(20.0f, 22.0f, -23.0f);
 
 
+
+
+
+	//left window
 
 	glNormal3f(1.0f, 0.0f, 0.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -117,7 +133,7 @@ wallsFloor::wallsFloor()
 	glDisable(GL_TEXTURE_2D);
 
 
-	/*
+	
 	//window
 	Image* imgw = loadBMP("res/b.bmp");
 	GLuint _txtIdgw = Textures::loadTextures(imgw);
@@ -146,12 +162,12 @@ wallsFloor::wallsFloor()
 	glDisable(GL_TEXTURE_2D);
 
 	//door
-	Image* imgd = loadBMP("res/b.bmp");
-	GLuint _txtIdgd = Textures::loadTextures(imgd);
-	delete imgd;
+	Image* imgdo = loadBMP("res/b.bmp");
+	GLuint _txtIdgdo = Textures::loadTextures(imgdo);
+	delete imgdo;
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, _txtIdgd);
+	glBindTexture(GL_TEXTURE_2D, _txtIdgdo);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
@@ -170,10 +186,11 @@ wallsFloor::wallsFloor()
 	glTexCoord2d(1, 1);
 	glVertex3f(19.999f, 12.0f, -7.0);
 	glTexCoord2d(0, 1);
-
 	glEnd();
 
-	glDisable(GL_TEXTURE_2D);*/
+	glDisable(GL_TEXTURE_2D);
+
+	
 }
 
 
