@@ -16,7 +16,7 @@
 #include "Sphere.h"
 #include "imageloader.h"
 #include "resource.h"
-
+#include "Vase.h"
 
 
 using namespace std;
@@ -29,8 +29,8 @@ float deltaAngle = 0.0f;
 float deltaMove = 0;
 void computePos(float deltaMove);
 void computeDir(float deltaAngle);
-void pressKey(int key, int xx, int yy);
-void releaseKey(int key, int xx, int yy);
+void pressKey(int key, int xxx, int yyy);
+void releaseKey(int key, int xxx, int yyy);
 
 int xx = 0;
 int yy = 1;
@@ -57,6 +57,7 @@ void handleKeypress(unsigned char key, int x, int y) {    //The current mouse co
 
 	}
 	
+	
 	}
 
 //Initializes 3D rendering
@@ -69,9 +70,9 @@ void initRendering() {
 	//glEnable(GL_LIGHT1);
 	//glEnable(GL_LIGHT3);
 	//glEnable(GL_LIGHT4);
-	glEnable(GL_NORMALIZE);
+	//glEnable(GL_NORMALIZE);
 	//glShadeModel(GL_SMOOTH);
-	glEnable(GL_BLEND);
+	//glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glEnable(GL_TEXTURE_2D);
 
@@ -112,9 +113,14 @@ void drawScene() {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
+
 	gluLookAt(camX[xx], camX[yy], camX[zz], c[xx], c[yy], c[zz], pos[xx], pos[yy], pos[zz]);
-	gluLookAt(x, 1.0f, z, x + lx, 1.0f, z + lz, 0.0f, 1.0f, 0.0f);
+	
+	//gluLookAt(x, 1.0f, z, x + lx, 1.0f, z + lz, 0.0f, 1.0f, 0.0f);
+	//if (deltaMove)
+	//	computePos(deltaMove);
+	//if (deltaAngle)
+	//	computeDir(deltaAngle);
 	
 	//ambient
 	/*GLfloat light_ambient[] = { 0.2, 0.0, 0.0, 1.0 };
@@ -130,20 +136,18 @@ void drawScene() {
 	GLfloat ambientcol[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientcol);
 
-	if (deltaMove)
-		computePos(deltaMove);
-	if (deltaAngle)
-		computeDir(deltaAngle);
+	
 	
 
 
 	Table::Table();
 	wallsFloor::wallsFloor();
 	bulb::bulb();
-	Reflection::Reflection();
+	//Reflection::Reflection();
 	Sphere::Sphere();
+	Vase::Vase();
 	glutSwapBuffers(); 
-	glDisable();
+	
 
 
 }
@@ -164,12 +168,13 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(drawScene);
 	glutKeyboardFunc(handleKeypress);
 	glutReshapeFunc(handleResize);
+	glutIdleFunc(drawScene);
 	glutSpecialFunc(pressKey);
 
 	// here are the new entries
 	glutIgnoreKeyRepeat(1);
 	glutSpecialUpFunc(releaseKey);
-	glutIdleFunc(drawScene);
+	
 	
 	
 	glutMainLoop(); 
@@ -189,17 +194,17 @@ void computeDir(float deltaAngle) {
 	lz = -cos(angle);
 }
 
-void pressKey(int key, int xx, int yy) {
+void pressKey(int key, int xxx, int yyy) {
 
 	switch (key) {
-	case GLUT_KEY_LEFT: deltaAngle = -0.01f; break;
-	case GLUT_KEY_RIGHT: deltaAngle = 0.01f; break;
-	case GLUT_KEY_UP: deltaMove = 0.5f; break;
-	case GLUT_KEY_DOWN: deltaMove = -0.5f; break;
+	case GLUT_KEY_LEFT: deltaAngle = -0.08f; break;
+	case GLUT_KEY_RIGHT: deltaAngle = 0.08f; break;
+	case GLUT_KEY_UP: deltaMove = 2.0f; break;
+	case GLUT_KEY_DOWN: deltaMove = -2.0f; break;
 	}
 }
 
-void releaseKey(int key, int x, int y) {
+void releaseKey(int key, int xxx, int yyy) {
 
 	switch (key) {
 	case GLUT_KEY_LEFT:
