@@ -73,13 +73,13 @@ wallsFloor::wallsFloor()
 
 	glNormal3f(0.0f, 0.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-5.0f, -3.0f, 2.0f);
+	//glVertex3f(-5.0f, -3.0f, 2.0f);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(20.0f, -3.0f, 2.0f);
+	//glVertex3f(20.0f, -3.0f, 2.0f);
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(20.0f, 22.0f, 2.0f);
+	//glVertex3f(20.0f, 22.0f, 2.0f);
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-5.0f, 22.0f, 2.0f);
+	//glVertex3f(-5.0f, 22.0f, 2.0f);
 
 	
 
@@ -135,7 +135,7 @@ wallsFloor::wallsFloor()
 
 	
 	//window
-	Image* imgw = loadBMP("res/b.bmp");
+	Image* imgw = loadBMP("res/gl.bmp");
 	GLuint _txtIdgw = Textures::loadTextures(imgw);
 	delete imgw;
 
@@ -162,7 +162,7 @@ wallsFloor::wallsFloor()
 	glDisable(GL_TEXTURE_2D);
 
 	//door
-	Image* imgdo = loadBMP("res/b.bmp");
+	Image* imgdo = loadBMP("res/gl.bmp");
 	GLuint _txtIdgdo = Textures::loadTextures(imgdo);
 	delete imgdo;
 

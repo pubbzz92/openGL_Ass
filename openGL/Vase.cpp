@@ -23,6 +23,7 @@ Vase::Vase()
 	gluDisk(quad, 0.0f, 0.3f, 32, 32);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+	//glRotatef(0, 1.0f, 0.0f, 0.0f);
 }
 
 
