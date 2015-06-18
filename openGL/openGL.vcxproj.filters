@@ -89,4 +89,7 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="c:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cmath" />
+  </ItemGroup>
 </Project>
